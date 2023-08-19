@@ -5,10 +5,7 @@ import com.codelab.SilverAirline.services.FlightService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +19,11 @@ public class SilverFlightController {
         this.flightSer=flightService;
     }
 
+    /**
+     * Books the flight
+     * @param flight
+     * @return ResponseEntity
+     */
     @PostMapping("/book_fli")
     public ResponseEntity<?> bookAFlight(@RequestBody Flight flight){
         try{if(flight==null){
@@ -39,15 +41,46 @@ public class SilverFlightController {
 
     }
 
+    /**
+     * Retrieve available flights.
+     * @return responseEntity
+     */
     @GetMapping("/flights")
     public ResponseEntity<List<Flight>> getAllFlights(){
         return ResponseEntity.ok(flightSer.getFlights());
     }
 
+    /**
+     *
+     * @param flight
+     * @return responseEntity
+     */
     @PostMapping("/lookup_fli")
-    public ResponseEntity<?> lookupFlightNumber(@RequestBody Flight flight){
+    public ResponseEntity<?> lookupFlightByDestinationAndOrigin(@RequestBody Flight flight){
 
-        return ResponseEntity.ok(flightSer.lookupFlight(flight.getFlightNumber()));
+        return ResponseEntity.ok(flightSer.lookupFlight(flight));
+    }
+
+    /***
+     *  Remove flight
+     * @param flight
+     * @return ResponseEntity
+     */
+    @PostMapping("/removeBkFl")
+    public ResponseEntity<?> removeFlight(@RequestBody Flight flight){
+
+        log.info("=======>Removing flight " + flight.getDestination().isEmpty());
+        if(flight.getFlightNumber().isEmpty()){
+            log.info("No flight number");
+            return new ResponseEntity<>("flightNumber is empty!",
+                    HttpStatus.BAD_REQUEST);
+
+        }
+        else {
+            flightSer.removeBookedFlight(flight);
+
+        return new ResponseEntity<>("Flight Removed!!",HttpStatus.OK);
+        }
     }
 
 }

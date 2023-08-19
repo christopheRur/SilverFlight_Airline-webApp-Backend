@@ -9,6 +9,7 @@ import java.util.List;
 public interface FlightService {
     Flight bookAFlight(Flight flight);
     List<Flight> getFlights();
-    Flight lookupFlight(String flightNumber);
+    Flight lookupFlight(Flight flight);
+    void removeBookedFlight(Flight flight);
 
 }
