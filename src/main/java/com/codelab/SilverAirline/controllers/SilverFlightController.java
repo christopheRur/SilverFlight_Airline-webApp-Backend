@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+
 @Slf4j
+@RestController
 public class SilverFlightController {
 
     private FlightService flightSer;
@@ -20,7 +21,7 @@ public class SilverFlightController {
     }
 
     /**
-     * Books the flight
+     * Books a flight
      * @param flight
      * @return ResponseEntity
      */
@@ -51,8 +52,8 @@ public class SilverFlightController {
     }
 
     /**
-     *
-     * @param flight
+     *Looks up flight by destination and origin of user.
+     * @param flight Flight
      * @return responseEntity
      */
     @PostMapping("/lookup_fli")
@@ -60,6 +61,7 @@ public class SilverFlightController {
 
         return ResponseEntity.ok(flightSer.lookupFlight(flight));
     }
+
 
     /***
      *  Remove flight
@@ -69,7 +71,7 @@ public class SilverFlightController {
     @PostMapping("/removeBkFl")
     public ResponseEntity<?> removeFlight(@RequestBody Flight flight){
 
-        log.info("=======>Removing flight " + flight.getDestination().isEmpty());
+        log.info("======>Removing flight " + flight.getDestination().isEmpty());
         if(flight.getFlightNumber().isEmpty()){
             log.info("No flight number");
             return new ResponseEntity<>("flightNumber is empty!",
