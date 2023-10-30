@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 
-
 @Entity
 @Data
 @NoArgsConstructor

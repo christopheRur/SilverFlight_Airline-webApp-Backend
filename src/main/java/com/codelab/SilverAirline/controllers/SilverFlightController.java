@@ -71,7 +71,7 @@ public class SilverFlightController {
     @PostMapping("/removeBkFl")
     public ResponseEntity<?> removeFlight(@RequestBody Flight flight){
 
-        log.info("======>Removing flight " + flight.getDestination().isEmpty());
+        log.info("=====>Removing flight " + flight.getDestination().isEmpty());
         if(flight.getFlightNumber().isEmpty()){
             log.info("No flight number");
             return new ResponseEntity<>("flightNumber is empty!",

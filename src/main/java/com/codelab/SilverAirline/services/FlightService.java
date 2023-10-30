@@ -8,8 +8,11 @@ import java.util.List;
 @Service
 public interface FlightService {
     Flight bookAFlight(Flight flight);
+
     List<Flight> getFlights();
+
     Flight lookupFlight(Flight flight);
+
     void removeBookedFlight(Flight flight);
 
 }
